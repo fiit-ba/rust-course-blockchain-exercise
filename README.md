@@ -1,81 +1,199 @@
-> NOTE: We have recently made significant changes to our repository structure. In order to streamline our development
-process and foster better contributions, we have merged three separate repositories Cumulus, Substrate and Polkadot into
-this repository. Read more about the changes [
-here](https://polkadot-public.notion.site/Polkadot-SDK-FAQ-fbc4cecc2c46443fb37b9eeec2f0d85f).
+# FIIT Rust kurz cvičenie 12 - Rust v Blockchaine.
 
-# Polkadot SDK
+Vitajte na bonusovom cvičení zameranom na využitie jazyka Rust v Blockchaine
 
-![](https://cms.polkadot.network/content/images/2021/06/1-xPcVR_fkITd0ssKBvJ3GMw.png)
+## Prerequizity
+- Rust: ```curl –proto ’=https’ –tlsv1.2 -sSf https://sh.rustup.rs | sh```
+- Rust: verzia nightly ```rustup default nightly```
+- Rust wasm ```rustup target add wasm32-unknown-unknown```
+- OS specific moduly ktoré vypíše pri kompilácii (Treba inštalovať dodatočne keďže každé OS má rôzne prerequizity)
+- 60gb úložisko a 8gb ram
 
-[![StackExchange](https://img.shields.io/badge/StackExchange-Community%20&%20Support-222222?logo=stackexchange)](https://substrate.stackexchange.com/)
+## Zadanie
+Máte predpripravenú šablónu Parachainu. Doplnte paletu ```voting``` o funkciu ktorá umožní vytvárať referendá pre kvadratické hlasovanie.
+Riešenie otestujte v Runtime.
 
-The Polkadot SDK repository provides all the resources needed to start building on the Polkadot network, a multi-chain
-blockchain platform that enables different blockchains to interoperate and share information in a secure and scalable
-way. The Polkadot SDK comprises three main pieces of software:
+### Ako funguje zjednodušené kvadratické hlasovanie:
 
-## [Polkadot](./polkadot/)
-[![PolkadotForum](https://img.shields.io/badge/Polkadot_Forum-e6007a?logo=polkadot)](https://forum.polkadot.network/)
-[![Polkadot-license](https://img.shields.io/badge/License-GPL3-blue)](./polkadot/LICENSE)
+- Alice hlasuje aye s ```1000``` hlasovacou silou. Musí rezervovať ```1000000``` tokenov
 
-Implementation of a node for the https://polkadot.network in Rust, using the Substrate framework. This directory
-currently contains runtimes for the Westend and Rococo test networks. Polkadot, Kusama and their system chain runtimes
-are located in the [`runtimes`](https://github.com/polkadot-fellows/runtimes/) repository maintained by
-[the Polkadot Technical Fellowship](https://polkadot-fellows.github.io/dashboard/#/overview).
+- Bob hlasuje nay s hlasovacou silou ```30```. Musí rezervovať ```900``` tokenov
 
-## [Substrate](./substrate/)
- [![SubstrateRustDocs](https://img.shields.io/badge/Rust_Docs-Substrate-24CC85?logo=rust)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html)
- [![Substrate-license](https://img.shields.io/badge/License-GPL3%2FApache2.0-blue)](./substrate/README.md#LICENSE)
+- Bob zahlasuje nay s ďalšou hlasovacou silou ```70```. Musí rezervovať ďalších ```9910``` tokenov (Dokopy má Bob hlasovaciu silu ```100``` a rezervovaných ```10000``` tokenov)
 
-Substrate is the primary blockchain SDK used by developers to create the parachains that make up the Polkadot network.
-Additionally, it allows for the development of self-sovereign blockchains that operate completely independently of
-Polkadot.
+Celková hlasovacia sila na referendu je teda:
 
-## [Cumulus](./cumulus/)
-[![CumulusRustDocs](https://img.shields.io/badge/Rust_Docs-Cumulus-222222?logo=rust)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html)
-[![Cumulus-license](https://img.shields.io/badge/License-GPL3-blue)](./cumulus/LICENSE)
+Aye - 1000
 
-Cumulus is a set of tools for writing Substrate-based Polkadot parachains.
+Nay - 100
 
-## Releases
+Referendum úspešne ukončí v **prospech tvorcu**.
 
-> [!NOTE]  
-> Our release process is still Work-In-Progress and may not yet reflect the aspired outline here.
+## Postup
 
-The Polkadot-SDK has two release channels: `stable` and `nightly`. Production software is advised to only use `stable`.
-`nightly` is meant for tinkerers to try out the latest features. The detailed release process is described in
-[RELEASE.md](docs/RELEASE.md).
+- Krok 1. Naviguj do palety voting ```cd cumulus/parachain-template/pallets/voting```
+- Krok 2. Doplň funkciu "create_proposal" podľa komentárov v kóde
+- Krok 2.1 Otestovanie doplnenej funkcie cez ```cargo build```
+- Krok 2.2 Otestovanie doplnenej funkcie cez testy ```cargo test --package pallet-voting --lib -- tests --nocapture```
+- Krok 2. Skompilovanie Polkadotu - ```cd Polkadot``` a ```cargo build --release```
+- Krok 3. Skompilovanie Parachain šablóny - ```cargo b -r -p parachain-template-node```
+- Krok 4. Prejsť do zložky binaries ```cd binaries```
+- Krok 5. Stiahnuť si zombienet binárku pre špecifický OS (Linux a Mac only) ```https://github.com/paritytech/zombienet/releases/tag/v1.3.90```
+(Windows buď cez virtuálnu mašinu alebo manuálne spustiť sieť ```https://docs.substrate.io/tutorials/build-a-parachain/connect-a-local-parachain/```)
+- Krok 6. Otvoriť PolkadotJS link ktorú poskytol Zombienet
+- Krok 7. Extrinsics tab (Otestuj si voting paletku) vytvor proposal
+ <img width="1440" alt="Screenshot" src="https://github.com/dudo50/polkadot-sdk/assets/55763425/e3f570a8-234b-4975-9263-cbca02772a22">
+- Krok 8. Sudo tab (Vytvor si voting entitu cez sudo) pomocou sudo.sudo.register_voter
+ <img width="1440" alt="Screenshot1" src="https://github.com/dudo50/polkadot-sdk/assets/55763425/476f745b-9ad3-4309-a11e-284faaeaa857">
+- Krok 9. Chainstate tab (Querni si dáta o proposale)
+<img width="1439" alt="Screenshot2" src="https://github.com/dudo50/polkadot-sdk/assets/55763425/33a7f160-3f56-4d84-ad14-27f1b3ae7a23">
 
-### Stable
+Práve si sa naučil základy interakcie s Blockchainom ✅.
 
-`stable` releases have a support duration of **three months**. In this period, the release will not have any breaking
-changes. It will receive bug fixes, security fixes, performance fixes and new non-breaking features on a **two week**
-cadence.
+## Bonusové zadanie
+- Rozšír paletu o žiadosti a poplatky za registráciu
+- Rozšír referendá o možnosť žiadať o prostriedky. Keď referendum skončí úspešne (AYE>NAY) prostriedky užívateľovi vyplať z Pokladnice (Vytvor špeciálny účet ktorý na to bude slúžiť a depozituj mu aktíva)
 
-### Nightly
+## Ak som stratený
+Ak som stratený mám dostupných nasledovných žolíkov ktoré využívam postupne.
+- ChatGPT?
+- Ťahák?
+- Cvičiaci?
+- Riešenie?
 
-`nightly` releases are released every night from the `master` branch, potentially with breaking changes. They have
-pre-release version numbers in the format `major.0.0-nightlyYYMMDD`.
+### Ťahák
 
-## Upstream Dependencies
+#### Opis funkcií v palete
 
-Below are the primary upstream dependencies utilized in this project:
+-  ```register_voter (origin: OriginFor<T>, who: T::AccountId)```
 
-- [`parity-scale-codec`](https://crates.io/crates/parity-scale-codec)
-- [`parity-db`](https://crates.io/crates/parity-db)
-- [`parity-common`](https://github.com/paritytech/parity-common)
-- [`trie`](https://github.com/paritytech/trie)
+Funkcia registruje hlasujúceho (Registruje jeho entitu - hlasovať môžu len registrovaný voliči). Potrebné **sudo**.
 
-## Security
+-  ```unregister_voter (origin: OriginFor<T>, who: T::AccountId)```
 
-The security policy and procedures can be found in [docs/contributor/SECURITY.md](./docs/contributor/SECURITY.md).
+Funkcia na deregistráciu hlasujúceho. Potrebné **sudo**.
 
-## Contributing & Code of Conduct
+-  ```create_proposal (origin: OriginFor<T>, text: T::Hash, end_block: T::BlockNumber )```
 
-Ensure you follow our [contribution guidelines](./docs/contributor/CONTRIBUTING.md). In every interaction and
-contribution, this project adheres to the [Contributor Covenant Code of Conduct](./docs/contributor/CODE_OF_CONDUCT.md).
+Funkcia na vytvorenie referenda, môžu ho vytvoriť aj normálny užívatelia. (Text si zahashuj!)
 
-## Additional Resources
+-  ``` create_vote (origin: OriginFor<T>, id: u32, vote: Vote, vote_powers: BalanceOf<T>)```
 
-- For monitoring upcoming changes and current proposals related to the technical implementation of the Polkadot network,
-  visit the [`Requests for Comment (RFC)`](https://github.com/polkadot-fellows/RFCs) repository. While it's maintained
-  by the Polkadot Fellowship, the RFC process welcomes contributions from everyone.
+Funkcia na hlasovanie - len registrovaný používateľ môže hlasovať
+
+-  ```deposit_token (origin: OriginFor<T>, who: T::AccountId, amount: BalanceOf<T>)```
+
+Testovacia funkcia na pridanie aktív. Potrebné **sudo**
+
+-  ```close_proposal(origin: OriginFor<T>, id: u32)```
+
+Funkcia na uzavretie referenda, referendum je možné uzavrieť po čase na ktorý bolo aktivované. Zavrieť ho môže ktokoľvek (Aby sa proposaly nekopili a nezahltili úložisko). 
+
+#### Eventy ktoré sa v palete používajú
+
+-  **TokensDeposited** {who: T::AccountId, amount: BalanceOf<T>}: Informuje používateľa o pridaných aktívach na účet
+
+-  **VoterRegistered** {who: T::AccountId}: Informuje používateľa o registrácii entity
+
+-  **VoterDeregistered** {who: T::AccountId}: Informuje používateľa o deregistrácii entity
+
+-  **ProposalCreated** {who: T::AccountId, proposal_id: u32}: Informuje používateľa o úspešnom vytvorení referenda
+
+-  **ProposalVoted** {who: T::AccountId, proposal_id: u32, vote: Vote, vote_power:  BalanceOf<T>}: Informuje používateľa o úspešnom hlasovaní
+
+-  **ProposalClosed** {who: T::AccountId, proposal_id: u32, status: ProposalStatus}: Informuje používateľa o úspešnom uzavretí hlasovania
+
+  
+
+#### Paletou emitované chyby
+
+-  **NotEnoughTokenToReserve**: Used if user wants to vote with more than they have
+
+-  **NonExistentProposal**: Proposal user wants to vote on or cancel does not exist
+
+-  **NonExistentIdentity**: Identity of voter is not created
+
+-  **TooFarInTheFuture**: There is block limit into future (configurable, set to 1000) so that there are not proposals for quadrillion blocks
+
+-  **ProposalNotOverYet**: Error when user wants to close proposal but block number is not yet above end block
+
+-  **ProposalNotInProgress**: Proposal status is Passed or Failed and not InProgress
+
+-  **AlreadyRegistered**: Identity is already registered
+
+-  **NotMatchingVote**: User wants to vote again but instead of eg Aye he now votes Nay, this is not permitted
+
+#### Úložisko
+
+```
+//Returns proposal for specific id
+pub type Proposals<T: Config> = StorageMap<_, Blake2_128Concat, u32, Proposal<T>>;
+```
+Úložisko vráti objekt referenda so špecifickou ID.
+
+```
+//Returns user ids in vector for specific proposal
+pub type ProposalVotes<T: Config> = StorageMap<_, Blake2_128Concat, u32, BoundedVec<T::AccountId, T::MaxVoters>>;
+```
+Úložisko vráti vektor účtov ktoré hlasovali na špecifické referendum.
+
+```
+//Returns id of last proposal
+pub type LastProposalId<T: Config> = StorageValue<_, u32>;
+```
+Úložisko ktoré informuje o poslednej ID referenda.
+
+```
+//Map accountid onto user_vote structure
+pub type UserVotes<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, BoundedVec<UserVote, T::MaxVotes>>;
+```
+Úložisko ktoré vráti hlasy ktoré účet použil.
+
+#### Riešenie funkcie "create_proposal"
+Ak sa ti nepodarilo vyriešiť funkciu tak si pozri riadok s ktorým sa pasuješ a potom sa vráť a skús zvyšok dokončiť sám.
+
+```
+		#[pallet::call_index(3)]
+		#[pallet::weight(Weight::from_parts(10_000, 0) + T::DbWeight::get().reads_writes(1,1))]
+		pub fn create_proposal(
+			origin: OriginFor<T>,
+			text: T::Hash,
+			end_block: U256,
+		) -> DispatchResult {
+			let who = ensure_signed(origin)?;
+
+			//We check if block is not too far in the future
+			//We get current block and add x blocks and check if end block is not bigger than that
+			let current_block = frame_system::Pallet::<T>::block_number();
+
+			//Get max future block configurable max future block
+			let max_block = current_block + T::MaxFutureBlock::get().into();
+
+			//Check if block is not too far in the future
+			ensure!(end_block < max_block.into(), Error::<T>::TooFarInTheFuture);
+
+			//Query latest proposal id
+			let id = LastProposalId::<T>::get().unwrap_or(0);
+
+			// Bounded vector for proposals and change storage map to storage value
+			Proposals::<T>::insert(
+				id + 1,
+				Proposal {
+					id: id + 1,
+					text,
+					vote_count_aye: 0u32.into(),
+					vote_count_nay: 0u32.into(),
+					end_block,
+					status: ProposalStatus::InProgress,
+				},
+			);
+
+			//Update last proposal id
+			LastProposalId::<T>::put(id + 1);
+
+			//Emit event proposal created
+			Self::deposit_event(Event::ProposalCreated { who, proposal_id: id + 1 });
+
+			Ok(())
+		}
+```
