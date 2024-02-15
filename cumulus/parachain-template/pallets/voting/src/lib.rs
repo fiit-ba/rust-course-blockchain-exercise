@@ -14,6 +14,7 @@ pub mod pallet {
 		pallet_prelude::*,
 		traits::{Currency, LockableCurrency, ReservableCurrency},
 	};
+	use scale_info::prelude::vec;
 	use frame_system::{
 		pallet_prelude::{OriginFor, *},
 	};
@@ -261,13 +262,11 @@ use sp_core::U256;
 
 			//Query latest proposal id
 
-			
-			// Insert new proposal
-
+			// Insert new proposal into storage
 
 			//Update last proposal id
 
-			
+
 			//Emit event proposal created
 
 
