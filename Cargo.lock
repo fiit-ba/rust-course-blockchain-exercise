@@ -11123,6 +11123,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-voting"
+version = "1.0.0"
+dependencies = [
+ "frame-benchmarking",
+ "frame-support",
+ "frame-system",
+ "pallet-balances",
+ "parity-scale-codec",
+ "scale-info",
+ "serde",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+]
+
+[[package]]
 name = "pallet-whitelist"
 version = "27.0.0"
 dependencies = [
@@ -11323,6 +11339,7 @@ dependencies = [
  "pallet-timestamp",
  "pallet-transaction-payment",
  "pallet-transaction-payment-rpc-runtime-api",
+ "pallet-voting",
  "pallet-xcm",
  "parachains-common",
  "parity-scale-codec",

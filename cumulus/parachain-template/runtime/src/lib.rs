@@ -63,6 +63,9 @@ use xcm::latest::prelude::BodyId;
 /// Import the template pallet.
 pub use pallet_parachain_template;
 
+/// Import voting pallet
+pub use pallet_voting;
+
 /// Alias to 512-bit hash when used in the context of a transaction signature on the chain.
 pub type Signature = MultiSignature;
 
@@ -360,6 +363,14 @@ impl pallet_sudo::Config for Runtime {
 	type WeightInfo = ();
 }
 
+impl pallet_voting::Config for Runtime {
+	type Currency = Balances;
+	type RuntimeEvent = RuntimeEvent;
+	type MaxVoters = ConstU32<200>;
+	type MaxFutureBlock = ConstU32<1000>;
+	type MaxVotes = ConstU32<1000>;
+	}
+
 parameter_types! {
 	pub const ReservedXcmpWeight: Weight = MAXIMUM_BLOCK_WEIGHT.saturating_div(4);
 	pub const ReservedDmpWeight: Weight = MAXIMUM_BLOCK_WEIGHT.saturating_div(4);
@@ -521,6 +532,7 @@ construct_runtime!(
 
 		// Template
 		TemplatePallet: pallet_parachain_template = 50,
+		VotingPallet: pallet_voting = 51,
 	}
 );
 
