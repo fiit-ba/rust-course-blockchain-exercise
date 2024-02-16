@@ -67,62 +67,43 @@ Ak som stratený mám dostupných nasledovných žolíkov ktoré využívam post
 #### Opis funkcií v palete
 
 -  ```register_voter (origin: OriginFor<T>, who: T::AccountId)```
-
 Funkcia registruje hlasujúceho (Registruje jeho entitu - hlasovať môžu len registrovaný voliči). Potrebné **sudo**.
 
 -  ```unregister_voter (origin: OriginFor<T>, who: T::AccountId)```
-
 Funkcia na deregistráciu hlasujúceho. Potrebné **sudo**.
 
 -  ```create_proposal (origin: OriginFor<T>, text: T::Hash, end_block: T::BlockNumber )```
-
 Funkcia na vytvorenie referenda, môžu ho vytvoriť aj normálny užívatelia. (Text si zahashuj!)
 
 -  ``` create_vote (origin: OriginFor<T>, id: u32, vote: Vote, vote_powers: BalanceOf<T>)```
-
 Funkcia na hlasovanie - len registrovaný používateľ môže hlasovať
 
 -  ```deposit_token (origin: OriginFor<T>, who: T::AccountId, amount: BalanceOf<T>)```
-
 Testovacia funkcia na pridanie aktív. Potrebné **sudo**
 
 -  ```close_proposal(origin: OriginFor<T>, id: u32)```
-
 Funkcia na uzavretie referenda, referendum je možné uzavrieť po čase na ktorý bolo aktivované. Zavrieť ho môže ktokoľvek (Aby sa proposaly nekopili a nezahltili úložisko). 
 
 #### Eventy ktoré sa v palete používajú
 
 -  **TokensDeposited** {who: T::AccountId, amount: BalanceOf<T>}: Informuje používateľa o pridaných aktívach na účet
-
 -  **VoterRegistered** {who: T::AccountId}: Informuje používateľa o registrácii entity
-
 -  **VoterDeregistered** {who: T::AccountId}: Informuje používateľa o deregistrácii entity
-
 -  **ProposalCreated** {who: T::AccountId, proposal_id: u32}: Informuje používateľa o úspešnom vytvorení referenda
-
 -  **ProposalVoted** {who: T::AccountId, proposal_id: u32, vote: Vote, vote_power:  BalanceOf<T>}: Informuje používateľa o úspešnom hlasovaní
-
 -  **ProposalClosed** {who: T::AccountId, proposal_id: u32, status: ProposalStatus}: Informuje používateľa o úspešnom uzavretí hlasovania
 
   
 
 #### Paletou emitované chyby
 
--  **NotEnoughTokenToReserve**: Used if user wants to vote with more than they have
-
--  **NonExistentProposal**: Proposal user wants to vote on or cancel does not exist
-
--  **NonExistentIdentity**: Identity of voter is not created
-
--  **TooFarInTheFuture**: There is block limit into future (configurable, set to 1000) so that there are not proposals for quadrillion blocks
-
--  **ProposalNotOverYet**: Error when user wants to close proposal but block number is not yet above end block
-
--  **ProposalNotInProgress**: Proposal status is Passed or Failed and not InProgress
-
--  **AlreadyRegistered**: Identity is already registered
-
--  **NotMatchingVote**: User wants to vote again but instead of eg Aye he now votes Nay, this is not permitted
+-  **NotEnoughTokenToReserve**: Používateľ chce hlasovať s viac aktívami než disponuje
+-  **NonExistentProposal**: Referendum neexistuje (Buď bolo uzavreté alebo nebolo nikdy vytvorené)
+-  **NonExistentIdentity**: Používateľ nie je registrovaný
+-  **TooFarInTheFuture**: Používateľ chce vytvoriť referendum na príliš ďalekú budúcnosť (Limit 1000blokov do budúcna - možné zmeniť v mock.rs)
+-  **ProposalNotOverYet**: Používateľ chce uzatvoriť referendum keď ešte stále nie je rozhodnuté
+-  **AlreadyRegistered**: Identita nového používateľa už existuje
+-  **NotMatchingVote**: Používateľ chce na referendum hlasovať znovu s opozíciou proti jeho pôvodnému hlasu (nedovolené striedať AYE a NAY na rovnakom referende)
 
 #### Úložisko
 
