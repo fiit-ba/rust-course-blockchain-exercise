@@ -51,6 +51,7 @@ Referendum úspešne ukončí v **prospech tvorcu**.
 Práve si sa naučil základy interakcie s Blockchainom ✅.
 
 ## Bonusové zadanie
+- Všimol si si niektoré limitácie ktoré táto paleta obsahuje? Aké?
 - Rozšír paletu o žiadosti a poplatky za registráciu
 - Rozšír referendá o možnosť žiadať o prostriedky. Keď referendum skončí úspešne (AYE>NAY) prostriedky užívateľovi vyplať z Pokladnice (Vytvor špeciálny účet ktorý na to bude slúžiť a depozituj mu aktíva)
 
