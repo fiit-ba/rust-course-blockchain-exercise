@@ -1,4 +1,4 @@
-# FIIT Rust kurz cvičenie 12 - Rust v Blockchaine.
+# FIIT Programovanie v jazyku Rust cvičenie 12 - Rust v Blockchaine.
 
 Vitajte na bonusovom cvičení zameranom na využitie jazyka Rust v Blockchaine
 
