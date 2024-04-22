@@ -40,12 +40,13 @@ Referendum úspešne ukončí v **prospech tvorcu**.
 - Krok 5. Prejsť do zložky binaries ```cd binaries```
 - Krok 6. Stiahnuť si zombienet binárku pre špecifický OS (Linux a Mac only) ```https://github.com/paritytech/zombienet/releases/tag/v1.3.90```
 (Windows buď cez virtuálnu mašinu alebo manuálne spustiť sieť ```https://docs.substrate.io/tutorials/build-a-parachain/connect-a-local-parachain/```)
-- Krok 7. Otvoriť PolkadotJS link ktorú poskytol Zombienet
-- Krok 8. Extrinsics tab (Otestuj si voting paletku) vytvor proposal
+- Krok 7. Spustiť zombienet binárku cez ```./zombienet-macos -p native -c 1 spawn config.toml```
+- Krok 8. Otvoriť PolkadotJS link ktorú poskytol Zombienet
+- Krok 9. Extrinsics tab (Otestuj si voting paletku) vytvor proposal
  <img width="1440" alt="Screenshot" src="https://github.com/dudo50/polkadot-sdk/assets/55763425/e3f570a8-234b-4975-9263-cbca02772a22">
-- Krok 9. Sudo tab (Vytvor si voting entitu cez sudo) pomocou sudo.sudo.register_voter
+- Krok 10. Sudo tab (Vytvor si voting entitu cez sudo) pomocou sudo.sudo.register_voter
  <img width="1440" alt="Screenshot1" src="https://github.com/dudo50/polkadot-sdk/assets/55763425/476f745b-9ad3-4309-a11e-284faaeaa857">
-- Krok 10. Chainstate tab (Querni si dáta o proposale)
+- Krok 11. Chainstate tab (Querni si dáta o proposale)
 <img width="1439" alt="Screenshot2" src="https://github.com/dudo50/polkadot-sdk/assets/55763425/33a7f160-3f56-4d84-ad14-27f1b3ae7a23">
 
 Práve si sa naučil základy interakcie s Blockchainom ✅.
