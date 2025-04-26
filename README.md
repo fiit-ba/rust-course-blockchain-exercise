@@ -4,8 +4,9 @@ Vitajte na bonusovom cvičení zameranom na využitie jazyka Rust v Blockchaine
 
 ## Prerequizity
 - Rust: ```curl –proto ’=https’ –tlsv1.2 -sSf https://sh.rustup.rs | sh```
-- Rust: verzia nightly ```rustup default nightly```
+- Rust: verzia 1.77.2 ```rustup default 1.77.2```
 - Rust wasm ```rustup target add wasm32-unknown-unknown```
+- Rust src ```rustup component add rust-src ```
 - OS specific moduly ktoré vypíše pri kompilácii (Treba inštalovať dodatočne keďže každé OS má rôzne prerequizity)
 - 60gb úložisko a 8gb ram
 
