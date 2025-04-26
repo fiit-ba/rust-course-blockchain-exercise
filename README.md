@@ -1,6 +1,6 @@
-# FIIT Programovanie v jazyku Rust cvičenie 12 - Rust v Blockchaine.
+# FIIT Programovanie v jazyku Rust - Rust v Blockchaine.
 
-Vitajte na bonusovom cvičení zameranom na využitie jazyka Rust v Blockchaine
+Vitajte na cvičení zameranom na využitie jazyka Rust v Blockchaine
 
 ## Prerequizity
 - Rust: ```curl –proto ’=https’ –tlsv1.2 -sSf https://sh.rustup.rs | sh```
