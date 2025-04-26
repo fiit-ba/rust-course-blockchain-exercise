@@ -11,7 +11,7 @@ Vitajte na bonusovom cvičení zameranom na využitie jazyka Rust v Blockchaine
 - 60gb úložisko a 8gb ram
 
 ## Zadanie
-Máte predpripravenú šablónu Parachainu. Doplnte paletu [voting](https://github.com/dudo50/polkadot-sdk/blob/master/cumulus/parachain-template/pallets/voting/src/lib.rs) o funkciu ktorá umožní vytvárať referendá pre kvadratické hlasovanie.
+Máte predpripravenú šablónu Parachainu. Doplnte paletu [voting](https://github.com/fiit-ba/rust-course-blockchain-exercise/blob/master/cumulus/parachain-template/pallets/voting/src/lib.rs) o funkciu ktorá umožní vytvárať referendá pre kvadratické hlasovanie.
 Riešenie otestujte v Runtime.
 
 ### Ako funguje zjednodušené kvadratické hlasovanie:
@@ -44,11 +44,14 @@ Referendum úspešne ukončí v **prospech tvorcu**.
 - Krok 7. Spustiť zombienet binárku cez ```./zombienet-macos -p native -c 1 spawn config.toml```
 - Krok 8. Otvoriť PolkadotJS link ktorú poskytol Zombienet
 - Krok 9. Extrinsics tab (Otestuj si voting paletku) vytvor proposal
- <img width="1440" alt="Screenshot" src="https://github.com/dudo50/polkadot-sdk/assets/55763425/e3f570a8-234b-4975-9263-cbca02772a22">
-- Krok 10. Sudo tab (Vytvor si voting entitu cez sudo) pomocou sudo.sudo.register_voter
- <img width="1440" alt="Screenshot1" src="https://github.com/dudo50/polkadot-sdk/assets/55763425/476f745b-9ad3-4309-a11e-284faaeaa857">
+<img width="890" alt="scr" src="https://github.com/user-attachments/assets/7b96dc3e-45f2-47fc-8d2a-e6001b805828" />
+
+- Krok 10. Sudo tab (Vytvor si voting entitu cez sudo) pomocou sudo.sudo.register_voter - Podpisujúci account musí byť ALICE!
+<img width="801" alt="scrr" src="https://github.com/user-attachments/assets/27fc36cb-332c-4ed5-bed8-e1c6dca6f70a" />
+
 - Krok 11. Chainstate tab (Querni si dáta o proposale)
-<img width="1439" alt="Screenshot2" src="https://github.com/dudo50/polkadot-sdk/assets/55763425/33a7f160-3f56-4d84-ad14-27f1b3ae7a23">
+<img width="1136" alt="scrrr" src="https://github.com/user-attachments/assets/649ccfe2-d35c-4e26-9b55-4de2fbdff6bf" />
+
 
 Práve si sa naučil základy interakcie s Blockchainom ✅.
 
